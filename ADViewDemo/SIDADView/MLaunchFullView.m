@@ -31,10 +31,13 @@
 @property (nonatomic, assign) int timerInterValue;
 @property (nonatomic, strong) NSString *btnTitle;
 @property (nonatomic, assign) BOOL isOpenWeb;
-@property (nonatomic ,weak) NSTimer *timer;
+
 @end
 
 @implementation MLaunchFullView
+{
+     dispatch_source_t _timer;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame buttonTitle:(NSString *)title TimerInteValue:(int)timerInteValue{
     if (self = [super initWithFrame:frame]) {
@@ -117,8 +120,7 @@
 
 - (void)imageBtn{
     self.isOpenWeb = YES;
-    // 销毁定时器
-    [_timer invalidate];
+    [self stopTimer];
     if (self.OpenAd_open_Block) {
         
         self.OpenAd_open_Block();
@@ -127,14 +129,14 @@
 
 - (void)startWithTime:(NSInteger)timeLine{
     // 3.定时器
-    _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeChange) userInfo:nil repeats:YES];
+//    _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeChange) userInfo:nil repeats:YES];
     
-    /*
+
 //    __weak typeof(self) weakSelf = self;
     //倒计时时间
     __block NSInteger timeOut = timeLine;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
     //每秒执行一次
     dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), 1.0 * NSEC_PER_SEC, 0);
     dispatch_source_set_event_handler(_timer, ^{
@@ -160,40 +162,30 @@
         }
     });
     dispatch_resume(_timer);
-     */
+
 }
 
 
-// 每隔一秒就会调用
-- (void)timeChange
-{
-//    static int time = self.timerInterValue;
-    
-    if (self.timerInterValue == -1) {
-        // 点击跳过的事情
-        [self closeButton];
-        
-        // 销毁定时器
-        [_timer invalidate];
-        //
-        //        // 创建主框架界面
-        //        BSTabBarController *tabBarVc = [[BSTabBarController alloc] init];
-        //
-        //        // 销毁当前界面,进入主框架界面,modal,push,直接修改窗口的根控制器
-        //        [UIApplication sharedApplication].keyWindow.rootViewController = tabBarVc;
-        //        [self presentViewController:tabBarVc animated:NO completion:nil];
-        
-        return;
-    }
-
-        [self.closeBtn setTitle:[NSString stringWithFormat:@"%@ %ld",self.btnTitle,(long)self.timerInterValue] forState:UIControlStateNormal];
-    
-    // 更新按钮文字
-    self.timerInterValue --;
-}
 
 - (void)setFilePath:(NSString *)filePath {
     _filePath = filePath;
     self.imageV.image = [UIImage imageWithContentsOfFile:filePath];
+}
+
+-(void) pauseTimer{
+    if(_timer){
+        dispatch_suspend(_timer);
+    }
+}
+-(void) resumeTimer{
+    if(_timer){
+        dispatch_resume(_timer);
+    }
+}
+-(void) stopTimer{
+    if(_timer){
+        dispatch_source_cancel(_timer);
+        _timer = nil;
+    }
 }
 @end

@@ -36,11 +36,12 @@
 //    [blockFullView showFromViewController:self];
     fullView.closeAdBlock = ^{
         //3、退出
-//        [self.imageV removeFromSuperview];
+        [self.imageV removeFromSuperview];
         NSLog(@"退出");
         ViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ViewController"];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nav animated:YES completion:nil];
+//        [self.navigationController pushViewController:nav animated:YES];
        
     };
 

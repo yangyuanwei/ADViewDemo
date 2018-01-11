@@ -109,6 +109,7 @@ static NSString *const adUrl = @"adUrl";
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:webVC];
             webVC.url = WeakSelf.model.clickActContent.webUrl;
             [[WeakSelf getCurrentVC] presentViewController:nav animated:YES completion:nil];
+//            [[WeakSelf getCurrentVC].navigationController pushViewController:nav animated:YES];
              NSLog(@"打开启动页广告");
         }else{
             NSLog(@"无启动页广告加载");
