@@ -1,0 +1,43 @@
+//
+//  PrefixHeader.pch
+//  ADViewDemo
+//
+//  Created by 杨远威 on 2018/1/8.
+//  Copyright © 2018年 ISNC. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import <AFNetworking.h>
+
+//appid
+#define APPID @"T5MhY2FOwgxqJeHey1phiQ=="
+
+//内网测试端口
+//#define Host @"http://192.168.19.15:8080"
+
+//继业端口
+#define Host @"http://192.168.16.194:8080"
+
+//初始化广告位
+#define ADHost  [NSString stringWithFormat:@"%@/advertisement/api/advertisingbits/initAdvertisingbit",Host]
+
+//开屏广告
+#define OpenAdHost  [NSString stringWithFormat:@"%@/advertisement/api/advertisingbits/getAdvertisingbit",Host]
+
+//点击广告
+#define ClickHost  @"http://192.168.16.101:8080/api/click/addClick"
+
+//初始化广告位
+////#define ADHost @"http://192.168.19.15:8080/advertisement/api/advertisingbits/initAdvertisingbit"
+
+////开屏广告
+//#define OpenAdHost @"http://192.168.19.15:8080/advertisement/api/advertisingbits/getAdvertisingbit"
+
+//点击广告
+//#define ClickHost @"http://192.168.19.15:8080/advertisement/api/click"
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* PrefixHeader_pch */
