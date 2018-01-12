@@ -12,13 +12,13 @@
 #import <AFNetworking.h>
 
 //appid
-#define APPID @"T5MhY2FOwgxqJeHey1phiQ=="
+#define APPID @"KHUkQrLusadEwv+pPHzSDQ=="
 
 //内网测试端口
-//#define Host @"http://192.168.19.15:8080"
+#define Host @"http://192.168.19.15:8080"
 
 //继业端口
-#define Host @"http://192.168.16.194:8080"
+//#define Host @"http://192.168.16.194:8080"
 
 //初始化广告位
 #define ADHost  [NSString stringWithFormat:@"%@/advertisement/api/advertisingbits/initAdvertisingbit",Host]

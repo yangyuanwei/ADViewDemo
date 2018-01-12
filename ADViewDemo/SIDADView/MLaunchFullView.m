@@ -30,7 +30,7 @@
 @property (weak, nonatomic)UIButton *openBtn;
 @property (nonatomic, assign) int timerInterValue;
 @property (nonatomic, strong) NSString *btnTitle;
-@property (nonatomic, assign) BOOL isOpenWeb;
+
 
 @end
 
@@ -41,7 +41,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame buttonTitle:(NSString *)title TimerInteValue:(int)timerInteValue{
     if (self = [super initWithFrame:frame]) {
-        self.isOpenWeb = NO;
+
         self.btnTitle = title;
 //        self.backgroundColor = [UIColor whiteColor];
         UIImageView *imageV = [[UIImageView alloc] init];
@@ -119,8 +119,7 @@
 }
 
 - (void)imageBtn{
-    self.isOpenWeb = YES;
-    [self stopTimer];
+    [self pauseTimer];
     if (self.OpenAd_open_Block) {
         
         self.OpenAd_open_Block();
@@ -128,9 +127,6 @@
 }
 
 - (void)startWithTime:(NSInteger)timeLine{
-    // 3.定时器
-//    _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeChange) userInfo:nil repeats:YES];
-    
 
 //    __weak typeof(self) weakSelf = self;
     //倒计时时间
@@ -147,11 +143,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 //退出
-                if (self.isOpenWeb ) {
-                  
-                }
                 [self closeButton];
-                //移初广告
+            
             });
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
